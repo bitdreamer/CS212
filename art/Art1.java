@@ -3,16 +3,14 @@
 
 package art;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
 
 public class Art1 extends JFrame
 {
    public static void main( String[] args )
    {
-      System.out.println("hi there.");
-      new Art1();
+      new Art1(); // declares one of these objects
    }
    
    // constructor
@@ -20,15 +18,14 @@ public class Art1 extends JFrame
    {
       setDefaultCloseOperation( EXIT_ON_CLOSE );
       
-      System.out.println("mod check "+((-1)%8));
-      
       setSize( 500,500);
       setVisible( true);
    }
    
+   // get called automatically any time the window needs to be redrawn
    public void paint( Graphics g )
    {
-      super.paint(g);
+      super.paint(g); // call to JFrame paint()
       
       g.drawLine( 50, 50, 250, 100 );
       g.drawRect( 50, 150, 100, 30 );
