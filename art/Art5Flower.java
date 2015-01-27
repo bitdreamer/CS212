@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 public class Art5Flower extends JFrame
 {
+
    public static void main( String[] args )
    {
       System.out.println("hi there.");
@@ -32,10 +33,10 @@ public class Art5Flower extends JFrame
       // notebook(g);
       //colorGrid(g);
       // randomBoxes(g);
-      //flower(g, 200, 200 );
+      flower(g, 200, 200 );
       //flower(g,300,350);
-      fieldOfFlowers(g);
-      //randomWalk(g);
+     // fieldOfFlowers(g);
+      // randomWalk(g);
     
    }
    
@@ -77,14 +78,16 @@ public class Art5Flower extends JFrame
    {
       double radius = 80; 
       
+     
+      
       setRandomColor(g);
       
-      for ( double angle=0; angle<6.28; angle += .25 )
+      for ( double angle=0; angle<4.28; angle += .45 )
       {
          double petalX = centerX + radius * Math.cos(angle);
          double petalY = centerY + radius * Math.sin(angle);
-         double leadX  = centerX + 0.8*radius * Math.cos(angle+.2);
-         double leadY  = centerY + 0.8*radius * Math.sin(angle+.2);
+         double leadX  = centerX + radius * Math.cos(angle+.4);
+         double leadY  = centerY + radius * Math.sin(angle+.4);
 
          // draw one petal as a polygon, in this case triangle
          int[] x = new int[3]; // array to hold x coords of points for polygon
@@ -105,9 +108,9 @@ public class Art5Flower extends JFrame
       {
          // set random color
          g.setColor( new Color(
-               (int) (150 + Math.random()*100),
-               (int) (150 + Math.random()*100),
-               (int) (Math.random()*55) 
+               (int) ( Math.random()*100),
+               (int) ( Math.random()*100),
+               (int) (  150 + Math.random()*55) 
                               )
                    );
          g.fillRect(

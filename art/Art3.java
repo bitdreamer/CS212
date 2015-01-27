@@ -6,9 +6,12 @@ package art;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JFrame;
+import java.util.*;
 
 public class Art3 extends JFrame
 {
+   Random randy;
+
    public static void main( String[] args )
    {
       System.out.println("hi there.");
@@ -20,6 +23,8 @@ public class Art3 extends JFrame
    {
       setDefaultCloseOperation( EXIT_ON_CLOSE );
       
+      randy = new Random();
+      
       setSize( 500,500);
       setVisible( true);
    }
@@ -30,6 +35,8 @@ public class Art3 extends JFrame
 
       // notebook(g);
       colorGrid(g);
+      
+      //oneRow(g, 300 );
       
    }
    
@@ -50,7 +57,13 @@ public class Art3 extends JFrame
    {
       for ( int x=100; x<460; x = x+ 40 )
       {
-         g.setColor(  new Color( x/2, y/2, 250 )  );
+         g.setColor(  new Color( x/2, y/2, 250 )  ); // color gradient
+         g.setColor(  new Color( 
+                                 randy.nextInt(256), 
+                                 randy.nextInt(256), 
+                                 randy.nextInt(256) 
+                               )  
+                   );
          g.fillRect( x, y, 35, 35 );
       }
    }

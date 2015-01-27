@@ -38,6 +38,8 @@ public class Art2 extends JFrame
       notebook(g);
       
    }
+   
+   // draw a fan shaped bunch of lines
    public void notebook(Graphics  g)
    {
       g.setColor( new Color(150,150,250) );
