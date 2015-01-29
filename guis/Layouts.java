@@ -25,7 +25,7 @@ public class Layouts extends JFrame implements ActionListener
       setTitle("Layout practice");
       
       //setLayout( new FlowLayout() );
-      setLayout( new GridLayout( 2,2 ));
+      setLayout( new FlowLayout() );
       
       dogButton = new JButton("dog");
       add(dogButton);
