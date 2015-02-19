@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 public class Mousie2 extends JFrame implements MouseListener, MouseMotionListener
 {
-   int x=0, y=0; // last mouse location
+   int x=0, y=0; // last mouse location when dragging 
    
    public static void main( String[] args )
    {

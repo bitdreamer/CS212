@@ -13,8 +13,8 @@ public class northPole extends JFrame implements MouseListener, ActionListener
 {
    protected Elf sam; //
    
-   protected Elf[] workForce;
-   protected int elfCount = 0; 
+   protected Elf[] workForce; // place to hold all of the Elf objects
+   protected int elfCount = 0; // how many so far in the array
    
    JButton surpriseButton;
    protected boolean surprise = false;
@@ -40,6 +40,9 @@ public class northPole extends JFrame implements MouseListener, ActionListener
       add(surpriseButton);
       surpriseButton.addActionListener( this );
       
+      
+      workForce[elfCount++] = new Elf( 100, 200, true );
+      
       setSize( 500,500);
       setVisible( true);
       
@@ -52,10 +55,12 @@ public class northPole extends JFrame implements MouseListener, ActionListener
       
       System.out.println("click at x="+e.getX()+" y="+e.getY());
       
-      sam = new Elf( x, y, surprise );
+      //sam = new Elf( x, y, surprise );
       
-      workForce[ elfCount ] = sam;
-      elfCount++;
+     // workForce[ elfCount ] = sam;
+     // elfCount++;
+      
+      workForce[elfCount++] = new Elf( x, y, surprise );
       
       repaint();
    }

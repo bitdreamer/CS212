@@ -10,6 +10,7 @@ public class City extends JFrame
 {
    int buildingCount = 50 ; // number of building in my city
    Random randy;
+   int water = 450; // y value where the water (reflection) starts
    
    public static void main ( String[] args )
    {
@@ -31,8 +32,9 @@ public class City extends JFrame
    {
       super.paint(g);
       
-      g.setColor( Color.black ); // set the night sky
-      g.fillRect(0,0,900,600);
+      // black background for everything
+      g.setColor( Color.black );
+      g.fillRect(0,0,getWidth(),getHeight());
       
       for ( int i=0; i<buildingCount; i++ )
       {
@@ -52,19 +54,19 @@ public class City extends JFrame
       glassWidth = randy.nextInt(10) + 5 ;
       glassHeight = glassWidth + randy.nextInt(5) ; // always taller than wide
       buildingWidth = randy.nextInt(100)+50;
-      buildingHeight = randy.nextInt( 500) +75;
+      buildingHeight = randy.nextInt( 300) +75;
       
       cornerx = randy.nextInt(800);
-      cornery = getHeight() - buildingHeight;  
+      cornery = water - buildingHeight;  
       
       // black background, then one color for whole building
       g.setColor( Color.black );
-      g.fillRect( cornerx-5, cornery-5, buildingWidth+5, buildingHeight+5 );
-      g.setColor( new Color( 150 + randy.nextInt(100), 
-                     150 + randy.nextInt(100),
-                     100 + randy.nextInt(100)
-                   ) 
-        );
+      g.fillRect( cornerx-5, cornery-5, buildingWidth+5, 2*buildingHeight+5 );
+      int red = 150 + randy.nextInt(100);
+      int green = 150 + randy.nextInt(100);
+      int blue = 150 + randy.nextInt(100);
+      Color colorMain = new Color( red, green, blue );
+      Color colorRefl = new Color( red*2/3, green*2/3, blue*2/3 );
 
             
       // we draw windows at wx wy.  they go width of the building (but not
@@ -75,9 +77,14 @@ public class City extends JFrame
       for ( wx = cornerx; wx < cornerx + buildingWidth - glassWidth; wx += 2 * glassWidth )
       {
          // draws one verticle column of windows (colored boxes)
-         for ( wy = cornery; wy< windowHeight - glassHeight; wy += 2 * glassHeight )
+         for ( wy = cornery; wy< water - glassHeight; wy += 2 * glassHeight )
          {
+            g.setColor( colorMain );
             g.fillRect( wx, wy, glassWidth, glassHeight);
+            g.setColor( colorRefl );
+            int tweakx = randy.nextInt(10)-5;
+            int tweaky = randy.nextInt(10)-5;
+            g.fillRect( wx+tweakx, 10+tweaky+2*water-wy-2*glassHeight ,glassWidth, glassHeight );
          }
       }
    }

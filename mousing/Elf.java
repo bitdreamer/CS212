@@ -12,7 +12,7 @@ public class Elf
    
    protected Color color;
    
-   protected boolean surprised;
+   protected boolean surprised; // 
    
    // Elf constructor
    public Elf( int x1, int y1, boolean surprised1 )
@@ -27,6 +27,7 @@ public class Elf
             );
    }
    
+   // draws and elf, looks like a little house 
    public void drawMe( Graphics g )
    {
       g.setColor( color );

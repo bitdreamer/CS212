@@ -12,8 +12,8 @@ import javax.swing.JFrame;
 
 public class ColorPicker3 extends JFrame implements MouseListener
 {
-   int h;
-   Box b;
+   Box b; // this is the special box out to the side that shows the
+          // chosen color
    Box[][] boxes; // 2-d array of Box objects, form a color pallet
    
    public static void main( String[] args )
@@ -38,7 +38,7 @@ public class ColorPicker3 extends JFrame implements MouseListener
       {
          for ( int j=0; j<20; j++ )
          {
-            boxes[i][j] = new Box(10+20*i, 40+20*j, randomColor() );
+            boxes[i][j] = new Box(10+20*i, 40+20*j );
          }
       }
       
@@ -97,4 +97,6 @@ public class ColorPicker3 extends JFrame implements MouseListener
 
    }
    
+   // This method lets someone from outside access the chosen color.
+   public Color getColor() { return b.color; }
 }
