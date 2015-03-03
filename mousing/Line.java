@@ -15,7 +15,10 @@ public class Line
    public void drawMe( Graphics g )
    {
       g.setColor( Color.black );
-      g.drawLine( ax, ay, bx, by );
-      g.drawLine( ay, ax, bx, by ) ;
+      g.drawLine( ax, ay, bx, by ); // drag line / snap line
+      //g.drawLine( ay, ax, bx, by ) ; // first two coord switched
+      
+      String s = "wefiwjeofijwefo";
+      int x = s.length();
    }
 }

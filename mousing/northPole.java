@@ -65,6 +65,8 @@ public class northPole extends JFrame implements MouseListener, ActionListener
       repaint();
    }
    public void mouseEntered( MouseEvent e ) {}
+   
+   // this is the start of a drag
    public void mousePressed( MouseEvent e )
    {
       sam = findElf( e.getX(), e.getY() );
@@ -85,10 +87,9 @@ public class northPole extends JFrame implements MouseListener, ActionListener
    
    
    // findElf takes xy coordinates and returns the Elf close to that
+   // returns null if not found.
    public Elf findElf( int clickx, int clicky )
    {
-      
-      
       for ( int i=0; i<elfCount; i++ )
       {
          double xdif = clickx - workForce[i].x;
