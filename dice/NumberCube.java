@@ -6,38 +6,68 @@
 package dice;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class NumberCube  extends JPanel
+public class NumberCube  extends JPanel implements MouseListener
 {
    int display; // the number showing on the cube as it rests
    Random randy;
    int ds = 10; // dot size
+   boolean stuck; // true means don't roll it
 
    // constructor
    public NumberCube()
    {
       setPreferredSize( new Dimension(100,100) );
+      stuck = false;
       
       randy = new Random();
       
       setBackground( randomColor() );
       
-      display = 1+randy.nextInt(6);
+      display = 0; // 1+randy.nextInt(6);
+      
+      addMouseListener(this);
+   }
+   
+   // generates a new 'display' (rolls the die)
+   // only changes display if not stuck
+   public void roll()
+   {
+      if ( !stuck) { display = 1+randy.nextInt(6); }
    }
    
    
-    //return a random color
+    //return a random color - paste.
    public Color randomColor()
    {
       Color c;
       c = new Color(
-                      randy.nextInt(255),
-                      randy.nextInt(255),
-                      randy.nextInt(255)
+                      150 + randy.nextInt(100),
+                      150 + randy.nextInt(100),
+                      150 + randy.nextInt(100)
                    );
       return c;
+   }
+   
+   // click sticks or un-sticks the numberCube
+   public void mouseClicked( MouseEvent e )
+   {
+      //roll();
+      stuck = !stuck;
+      repaint();
+   }
+   public void mousePressed( MouseEvent e ) {}
+   public void mouseReleased( MouseEvent e ) {}
+   public void mouseEntered( MouseEvent e ) {}
+   public void mouseExited( MouseEvent e ) {}
+   
+   public void reset()
+   {
+      stuck = false;
+      display = 0;	
    }
    
    @Override
@@ -46,7 +76,8 @@ public class NumberCube  extends JPanel
       super.paint(g);
       
       g.setColor( Color.black );
-      g.drawString( ""+display, 50, 50  );
+      if ( stuck ) { g.setColor(Color.white); }
+      //g.drawString( ""+display, 50, 50  );
       
       if ( display==1 )
       {
@@ -61,7 +92,7 @@ public class NumberCube  extends JPanel
       {
          g.fillOval(20,20,ds,ds);
          g.fillOval( 50, 50, ds, ds );
-         g.fillOval(40,40,ds,ds);
+         g.fillOval(80,80,ds,ds);
       }
       else if (display==4)
       {
