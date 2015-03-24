@@ -13,6 +13,7 @@ public class Pong
    static Random randy; 
    static Pong[] pings;  // list of all Pongs
    static int pingsCount; // number actually on the above list
+   public static int mode; // same as in Chaser
    
    // constructor
    //public Pong()
@@ -33,17 +34,43 @@ public class Pong
    // deltat is how long in time you should go
    public void move( double deltat )
    {
-      // run away from the closest other Pong
-      //Pong stalker = findClosePong();
-      Pong stalker = findRandomPong();   
-      vx = -(x - stalker.x);
-      vy = -(y - stalker.y);
-      
-      bounce();
-   
-      x += vx * deltat;
-      y += vy * deltat;
-      bounce();
+      if ( mode==0 ) // move toward random buddy
+      {
+	      Pong stalker = findRandomPong();   
+	      vx = -(x - stalker.x);
+	      vy = -(y - stalker.y);
+	      
+	      bounce();
+	   
+	      x += vx * deltat;
+	      y += vy * deltat;
+	      bounce();
+      }
+      else if (mode==1) // local clump
+      {
+	      Pong stalker = findClosePong();
+	      vx = -(x - stalker.x);
+	      vy = -(y - stalker.y);
+	      
+	      bounce();
+	   
+	      x += vx * deltat;
+	      y += vy * deltat;
+	      bounce();
+      }
+      else if (mode==2)
+      {
+	      // run away from the closest other Pong
+	      Pong stalker = findClosePong();
+	      vx = (x - stalker.x);
+	      vy = (y - stalker.y);
+	      
+	      bounce();
+	   
+	      x += vx * deltat;
+	      y += vy * deltat;
+	      bounce();
+      }
    }
    
    // returns random Pong

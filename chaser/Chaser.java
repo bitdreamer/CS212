@@ -16,6 +16,9 @@ public class Chaser extends JFrame implements ActionListener
    int pingsCount = 40; // number of Pongs in the array
    Timer clicky;
    double timeStep = 0.1; // click duration in seconds
+   JButton modeButton; // changes mode below
+   int mode = 0; // 0=move to random buddy, 1=move to nearest buddy,
+                 // 2=move away from nearest
    
    
    public static void main( String [] args )
@@ -29,6 +32,11 @@ public class Chaser extends JFrame implements ActionListener
    {
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setSize(500,500);
+      
+      setLayout(new FlowLayout());
+      modeButton = new JButton("all clump");
+      add(modeButton);
+      modeButton.addActionListener(this);
       
       // make array of Pongs
       pings = new Pong[pingsCount];
@@ -46,8 +54,23 @@ public class Chaser extends JFrame implements ActionListener
    
    public void actionPerformed( ActionEvent e )
    {
-      if ( e.getSource()==clicky ) { doClick(); }
+      if      ( e.getSource()==clicky     ) { doClick(); }
+      else if ( e.getSource()==modeButton ) { doMode(); }
       repaint();
+   }
+   
+   // increments mode, sets text of button, also sets Pong.mode so
+   // Pongs know how to move
+   public void doMode()
+   {
+      mode = (mode+1)%3; 
+      if      ( mode==0 ) { modeButton.setText("all clump");   }
+      else if ( mode==1 ) { modeButton.setText("local clump"); }
+      else if ( mode==2 ) { modeButton.setText("space out");    }
+      Pong.mode = mode;
+      
+      //pings[7].x = 345;
+     // pings[7].mode = mode;
    }
    
    // move the Pong
