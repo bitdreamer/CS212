@@ -1,4 +1,4 @@
-// Chaser.java
+// PongAnimationStuff.java
 // 2015 CS-212 class
 // program for dots (Pongs) to chase each other around the screen
 
@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Chaser extends JFrame implements ActionListener
+public class PongAnimationStuff extends JFrame implements ActionListener
 {
    //Pong ping; // holds one Pong to run around the screen
    Pong[] pings; // more Pongs
@@ -18,17 +18,17 @@ public class Chaser extends JFrame implements ActionListener
    double timeStep = 0.1; // click duration in seconds
    JButton modeButton; // changes mode below
    int mode = 0; // 0=move to random buddy, 1=move to nearest buddy,
-                 // 2=move away from nearest
+                 // 2=move away from nearest, 3=chaser
    
    
    public static void main( String [] args )
    {
-      new Chaser();
+      new PongAnimationStuff();
       
    }
    
    // constructor
-   public Chaser()
+   public PongAnimationStuff()
    {
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setSize(500,500);
@@ -38,18 +38,28 @@ public class Chaser extends JFrame implements ActionListener
       add(modeButton);
       modeButton.addActionListener(this);
       
+      Pong.thePongAnimation = this; // Pongs have access to THIS object, to get to the list
+                             // of fellow Pongs and such
+      
       // make array of Pongs
       pings = new Pong[pingsCount];
       for ( int i=0; i<pingsCount; i++ )
       {
-         pings[i] = new Pong( pings, pingsCount );
+         pings[i] = new Pong( i );
       }
-      
-      //ping = new Pong();
+      pings[0].imit = true; // pings[0] is "it".
+
       
       clicky = new Timer( (int)(1000*timeStep), this  ); // click every 0.10 second, 
       clicky.start();      
       setVisible(true);
+   }
+   
+   // delete Pong of index i from the list
+   public void delete( int i )
+   {
+      pings[i] = pings[ --pingsCount ];
+      pings[i].whichami = i;
    }
    
    public void actionPerformed( ActionEvent e )
@@ -63,10 +73,11 @@ public class Chaser extends JFrame implements ActionListener
    // Pongs know how to move
    public void doMode()
    {
-      mode = (mode+1)%3; 
+      mode = (mode+1)%4; 
       if      ( mode==0 ) { modeButton.setText("all clump");   }
       else if ( mode==1 ) { modeButton.setText("local clump"); }
       else if ( mode==2 ) { modeButton.setText("space out");    }
+      else if ( mode==3 ) { modeButton.setText("chaser");    }
       Pong.mode = mode;
       
       //pings[7].x = 345;
