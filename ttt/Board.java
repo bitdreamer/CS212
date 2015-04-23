@@ -19,6 +19,7 @@ public class Board extends JPanel implements MouseListener
    {
       Player.theBoard = this;
       boardSize = boardSize1;
+      Square.boardSize = boardSize;
       
       setBackground( Color.pink );
       setPreferredSize( new Dimension(400,400) );
@@ -29,14 +30,14 @@ public class Board extends JPanel implements MouseListener
       {
          for ( int j=0; j<boardSize; j++ )
          {
-            cell[i][j] = new Square(i,j); 
+            cell[i][j] = makeSquare(i,j);; 
          }
       }
       
       addMouseListener(this);
    }
 
-
+   public Square makeSquare( int i, int j ) { return new Square(i,j); }
    
    public void mouseClicked( MouseEvent e )
    {

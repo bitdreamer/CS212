@@ -11,7 +11,7 @@ import javax.swing.*;
 public class TicTacToe extends JFrame
 {
    Board theBoard;
-   Player[] player;
+   Player[] player; // will be 2 of them
    
    public static void main( String[] args)
    {
@@ -24,7 +24,7 @@ public class TicTacToe extends JFrame
       setTitle("Tic Tac Toe");
       setLayout( new FlowLayout() );
       
-      theBoard = new Board(3);
+      theBoard = makeBoard();
       add(theBoard);
       Player.theBoard = theBoard;
      
@@ -41,6 +41,9 @@ public class TicTacToe extends JFrame
       if ( player[1] instanceof Computer ) { player[1].start(); }
    }
    
+   // return new Board
+   public Board makeBoard() { return new Board(3); }
+   
    // returns a player, either Human or Computer, to play this letter
    public Player choosePlayer( char letter )
    {
@@ -49,7 +52,7 @@ public class TicTacToe extends JFrame
       while( p==null)
       {
          String answer = 
-         JOptionPane.showInputDialog("human or computer plays"+letter+"?(h,c): ");
+         JOptionPane.showInputDialog("human or computer plays "+letter+"?(h,c): ");
          if      ( answer.equals("h") ) { p = new Human(letter);  }
          else if ( answer.equals("c") ) { p = new Computer(letter); }
          else  { JOptionPane.showMessageDialog( null, "oops");    }

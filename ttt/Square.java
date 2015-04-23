@@ -6,11 +6,13 @@ import java.awt.*;
 
 public class Square
 {
+   static int boardSize; // grid size of board (like chess is 8, tic tac toe is 3)
    static int size; // size in pixels
    int ih, jv; // coordinate in grid of Board
    int x, y; // coordinates in pixels from upper left of panel
    char letter; // ' ', 'x', 'o' 
    
+   // send it the indexes of it in the array of Squares.
    public Square( int ih1, int jv1  )
    {
       ih = ih1; 
