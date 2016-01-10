@@ -32,7 +32,7 @@ public class Art1 extends JFrame
       g.drawOval( 50, 150, 100, 300 );
       g.setColor( Color.pink );
       g.fillRect(200,200,50,50 );
-      g.drawString("blah",300,300);
+      g.drawString("blah blah",300,300);
       
    }
 }
