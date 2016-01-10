@@ -25,7 +25,7 @@ public class Twixt extends JFrame implements ActionListener
       setTitle("Twixt");
       
       setLayout( new FlowLayout() );
-      theBoard = new Board(24);
+      theBoard = new Board(8);
       add( theBoard );
       Player.theBoard = theBoard;
       

@@ -14,7 +14,8 @@ public class Peg
    boolean showing; // true = this peg is on the board, 
                     // false = invisible , no play
    static int pegWidth;
-   Link[] link;
+   Link[] link; // these are the edges between pegs, numbered from
+                // 0 at about 1 o'clock 
    boolean win = false; // true=connected to starting side for this color
   
    
@@ -42,7 +43,7 @@ public class Peg
    public void addLinks()
    {
       addOneLink( 0, ih+1, jv-2 );
-      addOneLink( 1, ih+2, jv-1 );
+      addOneLink( 1, ih+2, jv-1 ); 
       addOneLink( 2, ih+2, jv+1 );
       addOneLink( 3, ih+1, jv+2 );
       //Peg p;

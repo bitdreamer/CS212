@@ -89,11 +89,11 @@ public class Board extends JPanel implements MouseListener
          {
             peg[i][j].owner = p;
             whoseTurn = (whoseTurn+1)%2;
-            peg[i][j].connect();
+            peg[i][j].connect(); // connect links to this peg
          }
          
       }
-      propogate();
+      propogate(); // find out if anyone won yet
       repaint();
    }
    
