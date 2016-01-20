@@ -46,7 +46,8 @@ public class Art2 extends JFrame
       for ( int y=100; y<500; y=y+20 )
       {
          //g.drawLine( 20, y, 480, y );
-         g.drawLine( 20, 50, 480, y );
+         int x = y;
+         g.drawLine( x, 50, 480, y );
       }
    }
 }

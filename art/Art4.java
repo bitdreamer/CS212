@@ -43,12 +43,13 @@ public class Art4 extends JFrame
    
    // randomBoxes will put a bunch of randomly sized boxes at
    // random places in the 500,500 window and with random colors.
+   // This also draws lines between each box and the next.
    public void randomBoxes( Graphics g )
    {
       int x=0,y=0;
       int oldx=0, oldy=0;
       
-      for ( int i=0; i<1000; i++ )
+      for ( int i=0; i<10; i++ )
       {
          // set random color
          g.setColor( new Color(
@@ -57,13 +58,14 @@ public class Art4 extends JFrame
                (int) (150+ Math.random()*55) 
                               )
                    );
-         oldx = x; 
-         oldy = y;
          x = (int) (Math.random()*450);
          y = (int) (Math.random()*450);
-         g.fillRect(  x,  y, 2, 2 );
+         g.fillRect(  x,  y, 20, 20 );
           
          g.drawLine( oldx, oldy, x, y );
+         
+         oldx = x; 
+         oldy = y;
       }
    }
    

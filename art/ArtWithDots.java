@@ -54,11 +54,12 @@ public class ArtWithDots extends JFrame
                (int) (150+ Math.random()*55) 
                               )
                    );
-         g.fillRect(
+                   int w;
+         g.fillOval(
                (int) (Math.random()*450),
                (int) (Math.random()*450),
-               (int) (Math.random()*5),
-               (int) (Math.random()*150)
+               w=((int) (Math.random()*50)),
+              w // (int) (Math.random()*15)
                    );
       }
    }

@@ -78,16 +78,16 @@ public class Art5Flower extends JFrame
    {
       double radius = 80; 
       
-     
-      
       setRandomColor(g);
       
-      for ( double angle=0; angle<4.28; angle += .45 )
+      // each loop draws one petal where the trailing edge of 
+      // the petal is at angle.  
+      for ( double angle=0; angle<6.28; angle += .45 )
       {
          double petalX = centerX + radius * Math.cos(angle);
          double petalY = centerY + radius * Math.sin(angle);
-         double leadX  = centerX + radius * Math.cos(angle+.4);
-         double leadY  = centerY + radius * Math.sin(angle+.4);
+         double leadX  = centerX + radius * Math.cos(angle+.3);
+         double leadY  = centerY + radius * Math.sin(angle+.3);
 
          // draw one petal as a polygon, in this case triangle
          int[] x = new int[3]; // array to hold x coords of points for polygon

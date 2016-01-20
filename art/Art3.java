@@ -51,19 +51,20 @@ public class Art3 extends JFrame
    }
    
    // oneRow draws a horizontal row of boxes 35x35 starting at 
-   // x=100 and top of boxes is y (argument).  spacing is 10,
+   // x=100 and top of boxes is y (argument).  spacing is 5,
    // so 40 total from left corner to left corner
    public void oneRow( Graphics g, int y )
    {
       for ( int x=100; x<460; x = x+ 40 )
       {
-         g.setColor(  new Color( x/2, y/2, 250 )  ); // color gradient
-         g.setColor(  new Color( 
-                                 randy.nextInt(256), 
-                                 randy.nextInt(256), 
-                                 randy.nextInt(256) 
-                               )  
-                   );
+         
+         int red = 200 + randy.nextInt(56); // REDDISH
+         int green = randy.nextInt(156);
+         int blue = randy.nextInt( 156);
+         g.setColor(  new Color( red, green, blue  )  );
+         
+         //g.setColor(  new Color( x/2, 255- y/2, 0 )  ); // color gradient
+         
          g.fillRect( x, y, 35, 35 );
       }
    }
