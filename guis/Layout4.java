@@ -1,5 +1,5 @@
 // Layout4.java
-
+// 2016 CS-212 class
 
 package guis;
 
@@ -40,6 +40,7 @@ public class Layout4 extends JFrame implements ActionListener
    
    // This method is given an even when someone does something
    // that this class (ActionListener) is listening for.
+   @Override
    public void actionPerformed( ActionEvent e )
    {
       if ( e.getSource()==dogButton ) { System.out.println("bow wow");  }

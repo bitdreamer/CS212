@@ -25,6 +25,7 @@ public class Art6Gasket extends JFrame
       setVisible( true);
    }
    
+   @Override
    public void paint( Graphics g )
    {
       super.paint(g);
@@ -175,9 +176,9 @@ public class Art6Gasket extends JFrame
        double zX, zY; zX = 50; zY = 50;
        for ( int i=0; i<100000; i++ )
        {
-           int red   = 78;  //(int) (Math.random()*255);
-           int blue  = 211; //(int) (Math.random()*255);
-           int green = 188; //(int) (Math.random()*255);
+           int red   = (int) (Math.random()*255);
+           int blue  = (int) (Math.random()*255);
+           int green = (int) (Math.random()*255);
         
            g.setColor( new Color( red, green, blue ) );
 
