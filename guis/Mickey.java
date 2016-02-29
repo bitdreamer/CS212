@@ -37,18 +37,10 @@ public class Mickey extends JFrame implements MouseListener
 	{
 	   mouseX = m.getX(); // in pixels from upper left of outer edge of window
 	   mouseY = m.getY();
-	   
-	   /*
-	   Box b = new Box( mouseX, mouseY );
-	   //b.x = mouseX; don't do this
-	   //b.y = mouseY;
-	   
-	   boxes[boxCount] = b;
-	   boxCount++;
-	   */
+
 	   boxes[boxCount++] = new Box( mouseX, mouseY );
 	   
-	   System.out.println("x="+mouseX+" y="+mouseY);
+	   //System.out.println("x="+mouseX+" y="+mouseY);
 	   repaint();
 	}
 	@Override public void mouseEntered( MouseEvent m) {}

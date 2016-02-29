@@ -35,5 +35,8 @@ public class Box
       g.setColor( color );
       g.fillRect( x, y, 10, 10);
    }
+   
+   public void setColor( Color c ) { color = c; } 
+   public Color getColor() { return color; }  
 
 }

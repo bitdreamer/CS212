@@ -21,7 +21,7 @@ public class Art6Gasket extends JFrame
    {
       setDefaultCloseOperation( EXIT_ON_CLOSE );
       
-      setSize( 500,500);
+      setSize( 800,800);
       setVisible( true);
    }
    
@@ -166,8 +166,8 @@ public class Art6Gasket extends JFrame
    public void Gasket( Graphics g )
    {
        int cornerX[], cornerY[];
-       cornerX = new int[3]; cornerX[0] = 200; cornerX[1] = 50; cornerX[2] = 480;
-       cornerY = new int[3]; cornerY[0] =  50; cornerY[1] =400; cornerY[2] = 450;
+       cornerX = new int[3]; cornerX[0] = 200; cornerX[1] = 50; cornerX[2] = 780;
+       cornerY = new int[3]; cornerY[0] =  50; cornerY[1] =750; cornerY[2] = 750;
        
        g.drawLine( cornerX[0], cornerY[0], cornerX[1], cornerY[1] );
        g.drawLine( cornerX[2], cornerY[2], cornerX[1], cornerY[1] );

@@ -6,19 +6,19 @@ package mousing;
 
 import java.awt.*;
 
-public class Box
+public class Swatch
 {
    protected Color color;
    protected int x, y; // pixels from upper left to upper left corner
    
    // constructor, give upper left corner and color
-   public Box( int x1, int y1, Color c1 )
+   public Swatch( int x1, int y1, Color c1 )
    {
       x = x1; y = y1; color = c1;
    }
    
    // constructor without color, makes random color
-   public Box( int x1, int y1 )
+   public Swatch( int x1, int y1 )
    {
       x = x1; y = y1; 
       setRandomColor();
