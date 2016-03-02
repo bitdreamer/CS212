@@ -12,6 +12,8 @@ public class Slot extends JPanel implements ActionListener
 {
    Random randy;
    
+   static Yahtzee theYahtzee;  // points to the main class
+   
    JButton theButton; // press this to score this item
    JTextField theScoreField; // field that holds/displays the points
    int score; // the points from the dice for this slot
@@ -61,19 +63,23 @@ public class Slot extends JPanel implements ActionListener
    @Override
    public void actionPerformed( ActionEvent e )
    {
-      // figure out the score and put it in the score field
-      // only do IF you haven't already
-      
-      if ( !used) 
+      if ( theYahtzee.rollCount>0 )
       {
-         score = computeScore();
-         theScoreField.setText(""+score);
-         used = true;
+	      // figure out the score and put it in the score field
+	      // only do IF you haven't already
+	      if ( !used) 
+	      {
+	         score = computeScore();
+	         theScoreField.setText(""+score);
+	         used = true;
+	         theYahtzee.cleanUp(); // reset dice for next round, check scores
+	      }
+	      repaint();
       }
-      repaint();
    }
    
    // return the value of the score for this slot
+   // also update the text field
    public int computeScore()
    {
       // this is just the total on the dice.  (fix)
@@ -82,6 +88,8 @@ public class Slot extends JPanel implements ActionListener
       {
          total += dice[i].faceUp;
       }
+      // theScoreField.setText(""+total);
+      score = total;
       return total;
    }
    

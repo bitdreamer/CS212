@@ -21,6 +21,7 @@ public class Yahtzee extends JFrame
    Die[] dice;
    int diceCount;
    JButton rollButton;
+   int rollCount=0;
 
    public static void main ( String [] args )
    {
@@ -32,6 +33,8 @@ public class Yahtzee extends JFrame
    {
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setTitle("Yahtzee sort of");
+      
+      Slot.theYahtzee = this;
       
       setLayout( new BorderLayout() );
       
@@ -62,13 +65,13 @@ public class Yahtzee extends JFrame
       
       slots = new Slot[16];
       
-      slots[0] = new SlotOnes(); // Slot("1s"); 
-      slots[1] = new Slot("2s"); 
-      slots[2] = new Slot("3s"); 
-      slots[3] = new Slot("4s"); 
-      slots[4] = new Slot("5s"); 
-      slots[5] = new Slot("6s"); 
-      slots[6] = new Slot("bonus"); 
+      slots[0] = new SlotOf(1); // Slot("1s"); 
+      slots[1] = new SlotOf(2); 
+      slots[2] = new SlotOf(3); 
+      slots[3] = new SlotOf(4); 
+      slots[4] = new SlotOf(5); 
+      slots[5] = new SlotOf(6); 
+      slots[6] = new SlotBonus(); 
       slots[7] = new Slot("upper total"); 
       
       for ( int i=0; i<8; i++ ) { upperPanel.add( slots[i] ); }
@@ -94,12 +97,31 @@ public class Yahtzee extends JFrame
       repaint();
    }
    
+   // reset the dice for next turn, update scores ,
+   // set rollCount back to 0.
+   public void cleanUp()
+   {
+      for ( int i=0; i<5; i++ ) 
+      {
+         dice[i].hold = false;
+         dice[i].setBackground( Color.WHITE );
+         // dice[i].faceUp = 0;
+      }
+      rollCount = 0; 
+      slots[6].computeScore(); // check the bonus     
+      repaint();
+   }
+   
    // tell all of the dice to roll themselves
    public void rollAll()
    {
-      for ( int i=0; i<diceCount; i++ )
+      if ( rollCount < 3 )
       {
-         dice[i].roll();
+	      for ( int i=0; i<diceCount; i++ )
+	      {
+	         dice[i].roll();
+	      }
+	      rollCount++;
       }
    }
 }
