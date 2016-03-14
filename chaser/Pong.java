@@ -21,7 +21,7 @@ public class Pong
    boolean imit=false; // true=this one chases the others in mode 3
    protected static PongAnimationStuff thePongAnimation;
    
-   Paddle thePaddle;
+   //Paddle thePaddle;
    
    int whichami; // my index in the array
 
