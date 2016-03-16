@@ -10,13 +10,15 @@ public class Rabbit
    double x, y; // location in the window from upper left, in pixels
    double vx, vy; // velocity of rabbit, pixels per second
    
+   double maxVel=150; // maximum velocity
+   
    public Rabbit()
    {
       x = Math.random() * 500 ;
       y = Math.random() * 500 ;
       
-      vx = 25 - Math.random() * 50;
-      vy = 25 - Math.random() * 50;
+      vx = 25 - Math.random() * maxVel;
+      vy = 25 - Math.random() * maxVel;
       
    }
    
@@ -31,11 +33,13 @@ public class Rabbit
    // don't let the rabbit move out of the window.
    public void stayInPen()
    {
-      if ( x>580 ) {  vx = - Math.random()*50; }
+      if ( x>580 ) {  vx = - Math.random()*maxVel; }
       
       if ( y>580 ) {  y = 580; vy = - vy; } // still sticks?
       
+      if ( x<10 ) { vx = Math.random()*maxVel; }
       
+      if ( y<40 ) { vy = Math.random()*maxVel;}
    }
      
    
