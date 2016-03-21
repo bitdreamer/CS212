@@ -19,6 +19,8 @@ public class CannonBall implements ActionListener
    
    double speed=150; // velocity
    
+   int bwidth=20; // 
+   
    javax.swing.Timer clicky;
    
    BrickBreaker theGame; // points up to main program
@@ -33,7 +35,7 @@ public class CannonBall implements ActionListener
       theGame = bb;
    
       x = 300 ;
-      y = 200 ;
+      y = 300 ;
       
       vx = speed/3;
       vy = speed;
@@ -41,6 +43,28 @@ public class CannonBall implements ActionListener
       clicky = new Timer(100,this);
       clicky.start();
    }
+   
+   
+   // if the ball hits a brick, it bounces and kills the brick
+   public void hitBricks()
+   {
+      for ( int i=0; i<theGame.brickCount; i++ )
+      {
+         if ( theGame.wall[i].hit( (int)x, (int)y, bwidth/2 ) )
+         {
+            vy = -vy;
+            theGame.killBrick(i);
+         }
+      }
+   }
+   
+   public void hitPaddle()
+   {
+      if ( theGame.thePaddle.hit( (int)x, (int)y, bwidth/2 ) )
+      { vy = -vy; 
+      }
+   }
+   
    
    public void actionPerformed( ActionEvent e )
    {
@@ -53,6 +77,8 @@ public class CannonBall implements ActionListener
    {
       x = x + vx * deltat;
       y = y + vy * deltat;
+      hitBricks();
+      hitPaddle();
       stayInPen();
    }
    
@@ -61,7 +87,7 @@ public class CannonBall implements ActionListener
    {
       if ( x>580 ) {  x = 580; vx = - vx; }
       
-      if ( y>580 ) {  y = 580; vy = - vy; } // still sticks?
+      //if ( y>580 ) {  y = 580; vy = - vy; } // still sticks?
       
       if ( x<10 ) { x = 10; vx = -vx; }
       
@@ -73,6 +99,6 @@ public class CannonBall implements ActionListener
    public void drawMe( Graphics g )
    {
       g.setColor( Color.BLUE );
-      g.fillOval( (int)(x-10), (int)(y-10), 20, 20 );
+      g.fillOval( (int)(x-bwidth/2), (int)(y-10), bwidth, bwidth );
    }
 }
