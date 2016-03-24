@@ -62,6 +62,7 @@ public class CannonBall implements ActionListener
    {
       if ( theGame.thePaddle.hit( (int)x, (int)y, bwidth/2 ) )
       { vy = -vy; 
+        vx = 3*(x-theGame.thePaddle.x);
       }
    }
    

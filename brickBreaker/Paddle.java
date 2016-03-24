@@ -42,7 +42,7 @@ public class Paddle implements MouseMotionListener
    public void mouseMoved( MouseEvent m )
    {
       x = m.getX();
-      theGame.repaint();
+      //theGame.repaint();
    }
    public void mouseDragged( MouseEvent m ) {}
 
