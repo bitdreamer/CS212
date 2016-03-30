@@ -40,12 +40,12 @@ public class Paddle implements MouseMotionListener
    // if theJimmy is hitting the Paddle then make it bounce
    public void bounce()
    {
-      if (    x-width/2<theJimmy.x && theJimmy.x < x+width/2 
-           && y-height<theJimmy.y && theJimmy.y < y+height
+      if (    x-width/2<theJimmy.i && theJimmy.i < x+width/2 
+           && y-height<theJimmy.j && theJimmy.j < y+height
          )
       {
          theJimmy.vy = -theJimmy.vyraw; // 
-         double xdif = theJimmy.x - x; // position of Jimmy relative to paddle center
+         double xdif = theJimmy.i - x; // position of Jimmy relative to paddle center
          theJimmy.vx = 7*xdif; // move Jimmy in that direction
       }
    }
