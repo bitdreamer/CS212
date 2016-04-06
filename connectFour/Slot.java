@@ -38,7 +38,6 @@ public class Slot
    }
 
    // draws outline of slot
-   // TODO - still needs to draw contents
    public void drawMe( Graphics g )
    {
       //System.out.println("Slot.drawMe: x="+i+" y="+j);

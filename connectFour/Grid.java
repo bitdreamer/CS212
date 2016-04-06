@@ -19,12 +19,20 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener
    boolean whoseTurn=true; // true=black, false=red
    
    int mouseX, mouseY; // mouse last seen at ... pixel from upper left
-
+  // boolean gameOver = false;
    
    public Grid()
    {
       setBackground( new Color(255,250,150) );
       setPreferredSize( new Dimension(800,600) );
+      reset();      
+      addMouseListener(this);
+      addMouseMotionListener(this);
+   }
+   
+   // ready to start game, new empty slots
+   public void reset()
+   {
       theSlots = new Slot[columns][rows];
       
       for ( int i=0; i<columns; i++ )
@@ -34,9 +42,54 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener
             theSlots[i][j] = new Slot(i,j);
          }
       }
+
+   }
+   
+   // returns color if winner, else returns null
+   public Color win(  )
+   {
+      boolean redwin = winH( Color.red );     
+      boolean blackwin = winH(Color.black);
+
+
       
-      addMouseListener(this);
-      addMouseMotionListener(this);
+      if ( redwin ) { return Color.red; }
+      if ( blackwin ) { return Color.black; }
+      return null;
+   }
+   
+   // check for winH, winV, winD1, winD2 on this color
+   public boolean win( Color c )
+   {
+      return false;
+   }
+   
+   // return true iff color c is a horizontal winner 
+   // (any starting position)
+   public boolean winH( Color c )
+   {
+      boolean win = false; 
+      
+      for ( int i=0; i<columns-3; i++ )
+      {
+         for ( int j=0; j<rows; j++ )
+         {
+            win |= winH( i, j, c );
+         }
+      }
+      return win;
+   }
+   
+   // return true iff there's 4 in a row horizontally from
+   // position, and c is the color of the winner.
+   public boolean winH( int i, int j, Color c )
+   {
+      return
+         (    theSlots[i  ][j].chip == c
+           && theSlots[i+1][j].chip == c 
+           && theSlots[i+2][j].chip == c 
+           && theSlots[i+3][j].chip == c 
+         );
    }
    
       
@@ -64,6 +117,15 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener
 	      
 	         found.chip = (whoseTurn)? Color.black : Color.red ;
 	         
+	         Color winner = win();
+	         if ( winner!=null )
+	         {
+	            System.out.println("winner="+winner);
+	            //gameOver = true;
+	            JOptionPane.showMessageDialog(null,"game over");
+	            reset();
+	         }
+	         
 	         whoseTurn = !whoseTurn;
          }
       }
@@ -88,7 +150,7 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener
    {
       super.paint(g);
       
-      System.out.println("Grid.paint: entering ...");
+      //System.out.println("Grid.paint: entering ...");
       for ( int i=0; i<columns; i++ )
       {
          for ( int j=0; j<rows; j++ )
@@ -96,10 +158,12 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener
             theSlots[i][j].drawMe(g);
          }
       }
-      
+      //if ( !gameOver )
+      {
       if ( whoseTurn ) { g.setColor( Color.black ); } 
       else             { g.setColor( Color.red   ); }
      
       g.fillOval( mouseX-Slot.size/2, mouseY-Slot.size/2, Slot.size-9, Slot.size-9 );
+      }
    }
 }
