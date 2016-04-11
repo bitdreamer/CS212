@@ -9,7 +9,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Grid extends JPanel implements MouseListener, MouseMotionListener
+import java.io.*;
+
+public class Grid extends JPanel implements MouseListener, MouseMotionListener,
+   ActionListener
 {
    Slot[][] theSlots; // 0,0 is lower left, 1,0 is to the right
                       // 0,1 is up one.
@@ -18,11 +21,14 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener
    int rows = 6;
    boolean whoseTurn=true; // true=black, false=red
    
+   ConnectFour theGame;  
+   
    int mouseX, mouseY; // mouse last seen at ... pixel from upper left
   // boolean gameOver = false;
    
-   public Grid()
+   public Grid( ConnectFour tg)
    {
+      theGame = tg; 
       setBackground( new Color(255,250,150) );
       setPreferredSize( new Dimension(800,600) );
       reset();      
@@ -142,7 +148,120 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener
        repaint();
     }
     public void mouseDragged( MouseEvent m ) {}
+    
+   @Override
+   public void actionPerformed( ActionEvent e )
+   {
+      if      ( e.getSource()==theGame.saveButton ) { save(); }
+      else if ( e.getSource()==theGame.loadButton ) { load(); }
+   }
 
+   // save the state of the game to a file
+   // save format is ..
+   // chip 2 3 red
+   // where 2 is the column number, 3 is row, color is chip color
+   // 
+   public void save()
+   {
+      JFileChooser fc;
+      fc = new JFileChooser();
+      int result = fc.showSaveDialog(this);
+      if( result==JFileChooser.APPROVE_OPTION )
+      {
+         File file = fc.getSelectedFile();
+         try
+         {
+            FileWriter fw = new FileWriter( file );
+            //fw.write("stub");
+            
+             for ( int i=0; i<columns; i++ )
+		      {
+		         for ( int j=0; j<rows; j++ )
+		         {
+		            String word = theSlots[i][j].getColorWord();
+		            if ( !word.equals("") )
+		            {
+		               fw.write("chip "+i+" "+j+" "+word+"\n" );
+		            }
+		          
+		         }
+		      }
+
+            fw.flush();
+            fw.close();
+
+         }
+         catch (IOException e) { System.out.println("splat");  }
+      }
+   }
+   
+   // load the state of the game from a file
+   public void load()
+   {
+      JFileChooser fc;
+      fc = new JFileChooser();
+      try
+      {
+         int result = fc.showOpenDialog(this);
+         if ( result==JFileChooser.APPROVE_OPTION );
+         {
+            File file = fc.getSelectedFile();
+            FileReader fr = new FileReader(file);
+            BufferedReader bfr = new BufferedReader( fr );
+            
+            String line;
+            
+            line = bfr.readLine();
+            
+            System.out.println("read:"+line);
+         }
+      }
+      catch ( IOException e ) { System.out.println("load error?"+e); }
+      catch ( Exception e   ) { System.out.println("other load error?"+e); }
+   }
+   /*
+            
+            if ( bfr != null )
+            {
+                String line;
+                boolean done=false;
+                while (!done)
+                {
+                    line = null;
+                    try{ line = bfr.readLine(); }
+                    catch (EOFException ee) { done = true; } // doesn't work
+                    catch (IOException ee) 
+                    { System.out.println("Cmd.cmd: read error="+ee); done = true; }
+                    
+                    boolean bug = theChippy.getBug();
+                    if (bug)
+                    {
+                       System.out.println("DoLoad:actionPerformed: line="+line);
+                    }
+                    
+                    // detect end of file (this one works)
+                    if ( line ==null ) { done = true; }
+                    
+                    if ( !done )
+                    {
+                        theChippy.getTheDoer().doCom( line );
+                    }
+                    if (bug)
+                    {
+                       System.out.println("    after processing numBoards="+theChippy.getNumBoards());
+                    }
+                }
+            }
+         }
+      }
+	   catch (Exception ee ) { System.out.println( ee.toString() );}
+	   //theChippy.countBoards();
+	   
+	   if (theChippy.getBug() )
+	   { System.out.println("DoLoad: numBoards="+theChippy.getNumBoards());}
+	   theChippy.repaint();
+
+   */
    
    // draws the grid
    @Override

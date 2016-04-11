@@ -10,6 +10,9 @@ import javax.swing.*;
 public class ConnectFour extends JFrame
 {
    Grid theGrid; // the place to play Chips in Slots
+   
+   JButton saveButton;
+   JButton loadButton;
 
    public static void main( String[] args )
    {
@@ -24,10 +27,17 @@ public class ConnectFour extends JFrame
       
       setLayout( new FlowLayout() );
       
-      theGrid = new Grid();
+      theGrid = new Grid(this);
+      saveButton = new JButton("save");
+      saveButton.addActionListener(theGrid);  
+      loadButton = new JButton("load");
+      loadButton.addActionListener( theGrid );
+      
+      add( saveButton );
+      add( loadButton );
       add(theGrid);
       
-      setSize(800,600);
+      setSize(800,700);
       setVisible(true);
    }
 }

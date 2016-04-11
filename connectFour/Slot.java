@@ -50,4 +50,16 @@ public class Slot
          g.fillOval( xpix+2, ypix+2, size-8, size-8 );
       }
    }
+   
+   // returns "red", "black" or ""
+   public String getColorWord()
+   {
+      if ( chip==null ) { return ""; }
+      else
+      {
+	      if      ( chip.equals(Color.red)   ) { return "red"; }
+	      else if ( chip==Color.black )        { return "black"; }
+	      else {return ""; }
+      }
+   }
 }
