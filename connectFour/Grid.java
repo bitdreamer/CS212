@@ -8,6 +8,7 @@ package connectFour;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 
 import java.io.*;
 
@@ -210,58 +211,41 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener,
             BufferedReader bfr = new BufferedReader( fr );
             
             String line;
-            
-            line = bfr.readLine();
-            
-            System.out.println("read:"+line);
-         }
-      }
-      catch ( IOException e ) { System.out.println("load error?"+e); }
-      catch ( Exception e   ) { System.out.println("other load error?"+e); }
-   }
-   /*
-            
-            if ( bfr != null )
+	        line = bfr.readLine();
+            while (line!=null) // will run until EOF exception
             {
-                String line;
-                boolean done=false;
-                while (!done)
-                {
-                    line = null;
-                    try{ line = bfr.readLine(); }
-                    catch (EOFException ee) { done = true; } // doesn't work
-                    catch (IOException ee) 
-                    { System.out.println("Cmd.cmd: read error="+ee); done = true; }
-                    
-                    boolean bug = theChippy.getBug();
-                    if (bug)
-                    {
-                       System.out.println("DoLoad:actionPerformed: line="+line);
-                    }
-                    
-                    // detect end of file (this one works)
-                    if ( line ==null ) { done = true; }
-                    
-                    if ( !done )
-                    {
-                        theChippy.getTheDoer().doCom( line );
-                    }
-                    if (bug)
-                    {
-                       System.out.println("    after processing numBoards="+theChippy.getNumBoards());
-                    }
-                }
+	            System.out.println("read:"+line);
+	            // yeah, ok, DO something with the line ...
+	            dealWith( line );
+	            
+	            line = bfr.readLine(); // ready for next loop    
             }
          }
       }
-	   catch (Exception ee ) { System.out.println( ee.toString() );}
-	   //theChippy.countBoards();
-	   
-	   if (theChippy.getBug() )
-	   { System.out.println("DoLoad: numBoards="+theChippy.getNumBoards());}
-	   theChippy.repaint();
-
-   */
+      catch ( EOFException e ) { System.out.println("end of file.  good?" ); }
+      catch ( IOException e ) { System.out.println("load error?"+e); }
+      catch ( Exception e   ) { System.out.println("other load error?"+e); }
+   }
+   
+   // this processes a line from the load file
+   public void dealWith( String line )
+   {
+      StringTokenizer st = new StringTokenizer( line );
+      
+      String cmd = st.nextToken();
+      if ( cmd.equals("chip") )
+      {
+         int i = Integer.parseInt( st.nextToken() );
+         int j = Integer.parseInt( st.nextToken() );
+         String colorWord = st.nextToken();
+         Color c = null;
+         if      ( colorWord.equals("black") ) { c = Color.black; }
+         else if ( colorWord.equals("red"  ) ) { c = Color.red; }
+         
+         theSlots[i][j].chip = c;
+         whoseTurn = !whoseTurn;
+      }
+   }
    
    // draws the grid
    @Override
